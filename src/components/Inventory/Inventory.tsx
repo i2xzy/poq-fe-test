@@ -1,4 +1,7 @@
 import React from 'react';
+import numeral from 'numeral';
+import 'numeral/locales';
+
 import Checkbox from '../Checkbox';
 
 import {
@@ -35,6 +38,8 @@ interface Props {
 }
 
 const Inventory = ({ items, selectItem }: Props) => {
+  numeral.locale('en-gb');
+
   const filteredItems = items.filter(item => item.available);
   return (
     <Wrapper>
@@ -49,8 +54,8 @@ const Inventory = ({ items, selectItem }: Props) => {
             <Promotion>{item.promotionBadge}</Promotion>
             <Name>{item.name}</Name>
             <Prices>
-              <Price>{item.price}</Price>
-              <PriceWas>{item.priceWas}</PriceWas>
+              <Price>{numeral(item.price).format('$0,0.00')}</Price>
+              <PriceWas>{numeral(item.priceWas).format('$0,0.00')}</PriceWas>
             </Prices>
             {item.quantity > 0 && (
               <Quantity>{`${item.quantity} in stock`}</Quantity>
